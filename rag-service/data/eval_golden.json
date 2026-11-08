@@ -1,0 +1,10 @@
+[
+  {"question": "2026 年夏季合成演示主体推出了哪四款新品？", "expected_doc": "2026 夏季四款新品", "expected_hint": "招牌可颂"},
+  {"question": "合成演示主体目前一共有多少家门店，主要在哪些城市？", "expected_doc": "门店网络", "expected_hint": "12 家"},
+  {"question": "冰面包应该怎么保存，保质期是多久？", "expected_doc": "冰面包产品线", "expected_hint": "0–4℃"},
+  {"question": "合成演示主体的包材用了什么材质，是否可持续？", "expected_doc": "包材设计规范", "expected_hint": "可持续材质"},
+  {"question": "竞品甲主打什么品类的产品？", "expected_doc": "竞品分析：竞品甲", "expected_hint": "干货类"},
+  {"question": "合成演示主体会员积分怎么算，私域怎么运营？", "expected_doc": "会员与私域", "expected_hint": "1 元积 1 分"},
+  {"question": "加盟合成演示主体需要满足什么条件？", "expected_doc": "加盟政策", "expected_hint": "加盟"},
+  {"question": "招牌可颂的工艺亮点是什么？", "expected_doc": "招牌产品配方亮点", "expected_hint": "27 层"}
+]

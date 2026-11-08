@@ -1,0 +1,51 @@
+"""配置分离：pydantic-settings，所有变量以 RAG_ 前缀从环境变量/.env 读取。"""
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    # 数据库
+    rag_db_file: str = "hunkon_rag.db"
+
+    # 全局鉴权
+    api_key: str = "dev-secret-key"
+
+    # LLM 供应商（mock | real）
+    llm_provider: str = "mock"
+    llm_base_url: str = "https://api.openai.com/v1"
+    llm_api_key: str = ""
+    llm_model: str = "gpt-4o-mini"
+    llm_temperature: float = 0.0
+    # 生成 token 上限。默认 1024：推荐的 sensenova-6.8-flash-lite 是推理模型，
+    # 思考链会先消耗大量 token，需留足预算才能让最终答案落到 content 字段。
+    llm_max_tokens: int = 1024
+    # 尽力关闭推理模型的思考链（reasoning），让其把最终答案直接写入 content 字段；
+    # 部分账户/模型会忽略该开关（仍走 thinking），此时依赖上面的 max_tokens 余量。
+    llm_disable_reasoning: bool = True
+
+    # 向量化供应商（mock | real）
+    embedder_provider: str = "mock"
+    embedder_base_url: str = "https://api.openai.com/v1"
+    embedder_api_key: str = ""
+    embedder_model: str = "text-embedding-3-small"
+    embed_dim: int = 256
+
+    # RAG 参数
+    chunk_size: int = 300
+    chunk_overlap: int = 50
+    top_k: int = 3
+
+    # 启动自愈合：比对 corpus 哈希，库为空或源改动时自动重建索引（防「改源忘灌库」）
+    auto_seed: bool = True
+
+    # 聚合层编译器：rule=确定性规则（离线可测） | llm=真实 LLM 识别实体/概念并生成聚合页
+    wiki_compiler: str = "rule"
+
+    # 语料目录：默认 data/corpus（合成展示）；可指向本地语料库（如 ./corpus/wiki）
+    corpus_dir: str = "data/corpus"
+
+    model_config = SettingsConfigDict(
+        env_file=".env", env_prefix="RAG_", extra="ignore"
+    )
+
+
+settings = Settings()
